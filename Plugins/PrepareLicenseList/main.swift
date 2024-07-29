@@ -34,9 +34,11 @@ struct PrepareLicenseList: BuildToolPlugin {
 
     // This command works with the plugin specified in `Package.swift`.
     func createBuildCommands(context: PluginContext, target: Target) async throws -> [Command] {
+        let sppPath = try context.tool(named: "spp").path
+        print("spp path: \(sppPath)")
         return [
             makeBuildCommand(
-                executablePath: try context.tool(named: "spp").path,
+                executablePath: sppPath,
                 sourcePackagesPath: try sourcePackages(context.pluginWorkDirectory),
                 outputPath: context.pluginWorkDirectory
             )
